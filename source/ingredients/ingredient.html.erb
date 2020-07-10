@@ -1,0 +1,13 @@
+---
+title: Cocktails | Ingredients | <%= ingredient.identity%>
+---
+
+<h1><%= ingredient.identity %></h1>
+
+<% if ingredient.proprietary? %>
+<p>Proprietary ingredient!</p>
+<% end %>
+
+<h2>Description</h2>
+
+<%= ingredient.htmlfrag %>

@@ -7,6 +7,12 @@ end
 
 class Ingredient < ActiveRecord::Base
   self.table_name = 'Ingredient'
+
+  scope :alpha_order, -> { order(identity: :asc) }
+
+  def to_param
+    identity.parameterize
+  end
 end
 
 class Recipe < ActiveRecord::Base

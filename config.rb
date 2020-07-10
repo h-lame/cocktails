@@ -26,11 +26,17 @@ page '/*.txt', layout: false
 #   },
 # )
 
+require './setup_data'
+require './lib/models'
+
 # Helpers
 # Methods defined in the helpers block are available in templates
 # https://middlemanapp.com/basics/helper-methods/
 
 helpers do
+  def ingredient_path(ingredient)
+    "/ingredients/#{ingredient.to_param}"
+  end
 end
 
 set :css_dir, 'stylesheets'
@@ -44,3 +50,6 @@ set :build_dir, 'public'
 #   activate :minify_css
 #   activate :minify_javascript
 # end
+Ingredient.alpha_order.all.each do |ingredient|
+  proxy "/ingredients/#{ingredient.to_param}/index.html", "/ingredients/ingredient.html", locals: { ingredient: ingredient }, ignore: true
+end
