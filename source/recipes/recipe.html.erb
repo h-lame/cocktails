@@ -1,0 +1,48 @@
+---
+title: Cocktails | Recipes | <%= recipe.title %>
+---
+
+<h1><%= recipe.title %></h1>
+
+<p><%= recipe.ingredient_summary %></p>
+
+<% if recipe.categorised_characteristics.any? %>
+<ul>
+  <% recipe.categorised_characteristics.each do |category, characteristics| %>
+    <li><%= category %>:
+      <ul><% characteristics.each do |characteristic| %>
+        <li><%= characteristic.label %></li>
+      <% end %></ul>
+    </li>
+  <% end %>
+</ul>
+<% end %>
+
+<% if recipe.recipe_formulations.any? %>
+<ol>
+  <% recipe.recipe_formulations.each do |formulation| %>
+    <li id="<%= formulation.to_param %>">
+      <h2><%= formulation.title %> (<%= formulation.year %>)</h2>
+
+      <p>Presentation: <%= formulation.presentation %></p>
+
+      <p>Ingredients list: <%= formulation.ingredients_list %></p>
+
+      <div><pre><%=h formulation.xmlbody %></pre></div>
+
+      <% if formulation.categorised_characteristics.any? %>
+      <h3>Characteristics</h3>
+      <ul>
+        <% formulation.categorised_characteristics.each do |category, characteristics| %>
+        <li><%= category %>:
+          <ul><% characteristics.each do |characteristic| %>
+            <li><%= characteristic.label %></li>
+          <% end %></ul>
+        </li>
+        <% end %>
+      </ul>
+      <% end %>
+    </li>
+  <% end %>
+</ol>
+<% end %>

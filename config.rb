@@ -34,6 +34,10 @@ require './lib/models'
 # https://middlemanapp.com/basics/helper-methods/
 
 helpers do
+  def recipe_path(recipe)
+    "/recipes/#{recipe.to_param}"
+  end
+
   def ingredient_path(ingredient)
     "/ingredients/#{ingredient.to_param}"
   end
@@ -50,6 +54,11 @@ set :build_dir, 'public'
 #   activate :minify_css
 #   activate :minify_javascript
 # end
+
+Recipe.alpha_order.all.each do |recipe|
+  proxy "/recipes/#{recipe.to_param}/index.html", "/recipes/recipe.html", locals: { recipe: recipe }, ignore: true
+end
+
 Ingredient.alpha_order.all.each do |ingredient|
   proxy "/ingredients/#{ingredient.to_param}/index.html", "/ingredients/ingredient.html", locals: { ingredient: ingredient }, ignore: true
 end
