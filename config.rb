@@ -41,6 +41,19 @@ helpers do
   def ingredient_path(ingredient)
     "/ingredients/#{ingredient.to_param}"
   end
+
+  def recipe_formulation_path(recipe_formulation)
+    "/recipes/#{recipe_formulation.recipe.to_param}##{recipe_formulation.to_param}"
+  end
+
+  def recipe_formulation_part_path(recipe_formulation_ingredient)
+    case recipe_formulation_ingredient.part
+    when Ingredient
+      ingredient_path(recipe_formulation_ingredient.part)
+    when RecipeFormulation
+      recipe_formulation_path(recipe_formulation_ingredient.part)
+    end
+  end
 end
 
 set :css_dir, 'stylesheets'

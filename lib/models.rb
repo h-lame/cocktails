@@ -53,6 +53,7 @@ class RecipeFormulation < ActiveRecord::Base
   belongs_to :recipe
   has_many :recipe_formulation_characteristics
   has_many :characteristics, through: :recipe_formulation_characteristics
+  has_many :recipe_formulation_ingredients
 
   def categorised_characteristics
     characteristics.category_order.group_by(&:category)
@@ -68,6 +69,18 @@ class RecipeFormulationCharacteristic < ActiveRecord::Base
 
   belongs_to :recipe_formulation
   belongs_to :characteristic
+end
+
+class RecipeFormulationIngredient < ActiveRecord::Base
+  belongs_to :recipe_formulation
+  belongs_to :ingredient
+  belongs_to :ingredient_recipe_formulation, class_name: 'RecipeFormulation', foreign_key: :ingredient_recipe_formulation_id
+
+  scope :with_part, -> { includes(:ingredient, :ingredient_recipe_formulation) }
+
+  def part
+    ingredient || ingredient_recipe_formulation
+  end
 end
 
 class RecipeCharacteristic < ActiveRecord::Base

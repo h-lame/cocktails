@@ -28,6 +28,15 @@ title: Cocktails | Recipes | <%= recipe.title %>
 
       <p>Ingredients list: <%= formulation.ingredients_list %></p>
 
+      <% if formulation.recipe_formulation_ingredients.any? %>
+      <h3>Ingredients</h3>
+      <ul>
+        <% formulation.recipe_formulation_ingredients.each do |ingredient| %>
+        <li><%= link_to ingredient.name, recipe_formulation_part_path(ingredient) %>
+        <% end %>
+      </ul>
+      <% end %>
+
       <div><pre><%=h formulation.xmlbody %></pre></div>
 
       <% if formulation.categorised_characteristics.any? %>
