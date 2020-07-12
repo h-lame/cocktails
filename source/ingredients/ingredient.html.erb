@@ -13,3 +13,15 @@ title: Cocktails | Ingredients | <%= ingredient.identity%>
 <h2>Description</h2>
 
 <%= ingredient.description %>
+
+
+<% if ingredient.recipe_formulations.any? %>
+<h2>Used in:</h2>
+
+<ol>
+  <% ingredient.recipe_formulations.each do |formulation| %>
+  <li><%= link_to formulation.title, recipe_formulation_path(formulation) %>
+  <% end %>
+</ol>
+
+<% end %>

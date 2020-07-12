@@ -49,6 +49,9 @@ class Ingredient < ActiveRecord::Base
 
   scope :alpha_order, -> { order(identity: :asc) }
 
+  has_many :recipe_formulation_ingredients
+  has_many :recipe_formulations, through: :recipe_formulation_ingredients
+
   def self.from_tag(tag)
     find_by(hashed_ingredient_id: tag.attribute('id').value)
   end
