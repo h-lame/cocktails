@@ -12,6 +12,10 @@ class Ingredient < ActiveRecord::Base
 
   scope :alpha_order, -> { order(identity: :asc) }
 
+  def self.from_tag(tag)
+    find_by(hashed_ingredient_id: tag.attribute('id').value)
+  end
+
   def to_param
     identity.parameterize
   end
@@ -57,6 +61,14 @@ class RecipeFormulation < ActiveRecord::Base
 
   def categorised_characteristics
     characteristics.category_order.group_by(&:category)
+  end
+
+  def self.from_tag(tag)
+    find_by(hashed_recipe_formulation_id2: tag.attribute('id').value)
+  end
+
+  def xmlbody_as_xml
+    Nokogiri::XML.fragment(xmlbody)
   end
 
   def to_param

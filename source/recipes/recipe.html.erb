@@ -39,6 +39,8 @@ title: Cocktails | Recipes | <%= recipe.title %>
 
       <div><pre><%=h formulation.xmlbody %></pre></div>
 
+      <ol class="recipe-steps"><%= tidy_xml(formulation.xmlbody_as_xml) %></ol>
+
       <% if formulation.categorised_characteristics.any? %>
       <h3>Characteristics</h3>
       <ul>
