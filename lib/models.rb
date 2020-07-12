@@ -85,7 +85,7 @@ class RecipeFormulation < ActiveRecord::Base
   self.table_name = 'RecipeFormulation'
 
   def title
-    canonical_title
+    "#{canonical_title} (#{year})"
   end
 
   belongs_to :recipe
