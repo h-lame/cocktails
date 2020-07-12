@@ -2,6 +2,7 @@ module XmlHelpers
   def tidy_xml(xml)
     link_up_ingredients(xml)
     extract_measures(xml)
+    l_to_li(xml)
     xml
   end
 
@@ -20,6 +21,13 @@ module XmlHelpers
         %{<span class="#{unit}">#{volume}</span>}
       end
       measure_tag.replace(%{<span class="measure">#{measures.join}</span>})
+    end
+    xml
+  end
+
+  def l_to_li(xml)
+    xml.css('l').each do |l_tag|
+      l_tag.replace(%{<li>#{l_tag.children.to_html}</li>})
     end
     xml
   end
