@@ -33,29 +33,6 @@ require './lib/models'
 # Methods defined in the helpers block are available in templates
 # https://middlemanapp.com/basics/helper-methods/
 
-helpers do
-  def recipe_path(recipe)
-    "/recipes/#{recipe.to_param}"
-  end
-
-  def ingredient_path(ingredient)
-    "/ingredients/#{ingredient.to_param}"
-  end
-
-  def recipe_formulation_path(recipe_formulation)
-    "/recipes/#{recipe_formulation.recipe.to_param}##{recipe_formulation.to_param}"
-  end
-
-  def recipe_formulation_part_path(recipe_formulation_ingredient)
-    case recipe_formulation_ingredient.part
-    when Ingredient
-      ingredient_path(recipe_formulation_ingredient.part)
-    when RecipeFormulation
-      recipe_formulation_path(recipe_formulation_ingredient.part)
-    end
-  end
-end
-
 set :css_dir, 'stylesheets'
 set :js_dir, 'javascripts'
 set :images_dir, 'images'
