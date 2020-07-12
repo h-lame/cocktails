@@ -25,3 +25,14 @@ create table if not exists "barwares" (
   synonyms text,
   PRIMARY KEY(id)
 );
+
+create table if not exists "recipe_formulation_barwares" (
+  id integer not null,
+  recipe_formulation_id integer not null,
+  barware_id integer not null,
+  PRIMARY KEY(id),
+  FOREIGN KEY(recipe_formulation_id) REFERENCES "RecipeFormulation" (recipe_formulation_id),
+  FOREIGN KEY(barware_id) REFERENCES "barwares" (id)
+);
+create index "ix_recipe_formulation_barwares_recipe_formulation_id" on "recipe_formulation_barwares" (recipe_formulation_id);
+create index "ix_recipe_formulation_barwares_barware_id" on "recipe_formulation_barwares" (barware_id);

@@ -12,6 +12,7 @@ end
 
 collected = []
 Barware.transaction do
+  RecipeFormulationBarware.delete_all
   Barware.delete_all
   Recipe.includes(:recipe_formulations).alpha_order.all.each do |recipe|
     recipe.recipe_formulations.each do |formulation|
@@ -22,12 +23,13 @@ Barware.transaction do
         bwr_text = bwr.text
         bwr = Barware.find_by(id: bwr_id)
         if bwr.blank?
-          Barware.create!(id: bwr_id, name: bwr_text)
+          bwr = Barware.create!(id: bwr_id, name: bwr_text)
         elsif bwr.name != bwr_text
           synonyms = bwr.synonyms_array
           synonyms << bwr_text
           bwr.update!(synonyms_array: synonyms)
         end
+        RecipeFormulationBarware.create!(recipe_formulation: formulation, barware: bwr)
       end
     end
   end

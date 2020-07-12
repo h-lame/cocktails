@@ -10,6 +10,9 @@ end
 class Barware < ActiveRecord::Base
   scope :alpha_order, -> { order(name: :asc) }
 
+  has_many :recipe_formulation_barwares
+  has_many :recipe_formulations, through: :recipe_formulation_barwares
+
   def synonyms_array=(new_array)
     self.synonyms = CSV.generate_line(Set.new(new_array)).chomp
   end
@@ -92,6 +95,8 @@ class RecipeFormulation < ActiveRecord::Base
   has_many :recipe_formulation_characteristics
   has_many :characteristics, through: :recipe_formulation_characteristics
   has_many :recipe_formulation_ingredients
+  has_many :recipe_formulation_barwares
+  has_many :barwares, through: :recipe_formulation_barwares
 
   def categorised_characteristics
     characteristics.category_order.group_by(&:category)
@@ -115,6 +120,11 @@ class RecipeFormulationCharacteristic < ActiveRecord::Base
 
   belongs_to :recipe_formulation
   belongs_to :characteristic
+end
+
+class RecipeFormulationBarware < ActiveRecord::Base
+  belongs_to :recipe_formulation
+  belongs_to :barware
 end
 
 class RecipeFormulationIngredient < ActiveRecord::Base

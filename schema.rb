@@ -128,6 +128,13 @@ ActiveRecord::Schema.define(version: 0) do
     t.text "synonyms"
   end
 
+  create_table "recipe_formulation_barwares", force: :cascade do |t|
+    t.integer "recipe_formulation_id", null: false
+    t.integer "barware_id", null: false
+    t.index ["barware_id"], name: "ix_recipe_formulation_barwares_barware_id"
+    t.index ["recipe_formulation_id"], name: "ix_recipe_formulation_barwares_recipe_formulation_id"
+  end
+
   create_table "recipe_formulation_ingredients", force: :cascade do |t|
     t.integer "recipe_formulation_id", null: false
     t.integer "ingredient_id"

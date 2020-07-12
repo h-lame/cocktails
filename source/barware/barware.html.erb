@@ -12,3 +12,13 @@ title: Cocktails | Barware | <%= barware.name %>
   <% end %>
 </ol>
 <% end %>
+
+<% if barware.recipe_formulations.any? %>
+<h2>Used in</h2>
+
+<ol>
+  <% barware.recipe_formulations.each do |formulation| %>
+  <li><%= link_to formulation.title, recipe_formulation_path(formulation) %></li>
+  <% end %>
+</ol>
+<% end %>
