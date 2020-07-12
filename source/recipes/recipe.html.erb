@@ -4,6 +4,14 @@ title: Cocktails | Recipes | <%= recipe.title %>
 
 <h1><%= recipe.title %></h1>
 
+<div class="unit-selector">
+  Units:
+  <label for="units-ml"><input id="units-ml" type="radio" name="units" value="ml" checked="checked"/> ml</label>
+  <label for="units-cl"><input id="units-cl" type="radio" name="units" value="cl"/> cl</label>
+  <label for="units-oz"><input id="units-oz" type="radio" name="units" value="oz"/> oz</label>
+  <label for="units-gills"><input id="units-gills" type="radio" name="units" value="gill"/> gill</label>
+</div>
+
 <p><%= recipe.ingredient_summary %></p>
 
 <% if recipe.categorised_characteristics.any? %>
