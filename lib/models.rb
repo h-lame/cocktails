@@ -1,18 +1,26 @@
 class CocktailRecord < ActiveRecord::Base
   self.abstract_class = true
+
+  def self.insensitive_order(**columns)
+    order(
+      Arel.sql(
+        columns.map { |column, dir| "#{column} COLLATE NOCASE #{dir}" }.join(', ')
+      )
+    )
+  end
 end
 
 class Characteristic < CocktailRecord
   self.table_name = 'Characteristic'
 
-  scope :category_order, -> { order(category: :desc, label: :asc) }
+  scope :category_order, -> { insensitive_order(category: :asc, label: :asc) }
 
   has_many :recipe_characteristics
   has_many :recipe_formulation_characteristics
 end
 
 class Barware < CocktailRecord
-  scope :alpha_order, -> { order(name: :asc) }
+  scope :alpha_order, -> { insensitive_order(name: :asc) }
 
   has_many :recipe_formulation_barwares
   has_many :recipe_formulations, through: :recipe_formulation_barwares
@@ -33,7 +41,7 @@ end
 class BarwareImage < CocktailRecord
   self.table_name = 'Image'
 
-  scope :alpha_order, -> { order(image_name: :asc) }
+  scope :alpha_order, -> { insensitive_order(image_name: :asc) }
 
   def title
     image_name.gsub(/\Aicon\.(.*)\.bar\Z/, '\1')
@@ -51,13 +59,13 @@ end
 class Ingredient < CocktailRecord
   self.table_name = 'Ingredient'
 
-  scope :alpha_order, -> { order(identity: :asc) }
+  scope :alpha_order, -> { insensitive_order(identity: :asc) }
 
   has_many :recipe_formulation_ingredients
   has_many :recipe_formulations, through: :recipe_formulation_ingredients
 
   def self.categories
-    order(category: :asc).select('distinct category').map &:category
+    insensitive_order(category: :asc).select('distinct category').map &:category
   end
 
   def self.from_tag(tag)
@@ -72,7 +80,7 @@ end
 class Recipe < CocktailRecord
   self.table_name = 'Recipe'
 
-  scope :alpha_order, -> { order(canonical_title: :asc) }
+  scope :alpha_order, -> { insensitive_order(canonical_title: :asc) }
 
   has_many :recipe_formulations, -> { order(year: :desc) }
   has_many :recipe_characteristics
