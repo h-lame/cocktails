@@ -52,3 +52,6 @@ end
 Ingredient.alpha_order.all.each do |ingredient|
   proxy "/ingredients/#{ingredient.to_param}/index.html", "/ingredients/ingredient.html", locals: { ingredient: ingredient }, ignore: true
 end
+Barware.alpha_order.all.each do |barware|
+  proxy "/barware/#{barware.to_param}/index.html", "/barware/barware.html", locals: { barware: barware }, ignore: true
+end

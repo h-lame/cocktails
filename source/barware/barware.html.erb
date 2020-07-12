@@ -1,0 +1,14 @@
+---
+title: Cocktails | Barware | <%= barware.name %>
+---
+
+<h1><%= barware.name %></h1>
+
+<% if barware.synonyms_array.any? %>
+<h2>Also known as</h2>
+<ol>
+  <% barware.synonyms_array.each do |synonym| %>
+  <li><%= synonym %></li>
+  <% end %>
+</ol>
+<% end %>

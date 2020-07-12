@@ -7,6 +7,22 @@ class Characteristic < ActiveRecord::Base
   has_many :recipe_formulation_characteristics
 end
 
+class Barware < ActiveRecord::Base
+  scope :alpha_order, -> { order(name: :asc) }
+
+  def synonyms_array=(new_array)
+    self.synonyms = CSV.generate_line(Set.new(new_array)).chomp
+  end
+
+  def synonyms_array
+    Set.new(CSV.parse_line(self.synonyms || '') || [])
+  end
+
+  def to_param
+    name.parameterize
+  end
+end
+
 class Ingredient < ActiveRecord::Base
   self.table_name = 'Ingredient'
 

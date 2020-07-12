@@ -123,6 +123,11 @@ ActiveRecord::Schema.define(version: 0) do
     t.datetime "datetime", null: false
   end
 
+  create_table "barwares", force: :cascade do |t|
+    t.text "name", null: false
+    t.text "synonyms"
+  end
+
   create_table "recipe_formulation_ingredients", force: :cascade do |t|
     t.integer "recipe_formulation_id", null: false
     t.integer "ingredient_id"

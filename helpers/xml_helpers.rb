@@ -3,6 +3,7 @@ module XmlHelpers
     link_up_ingredients(xml)
     extract_measures(xml)
     l_to_li(xml)
+    extract_barware(xml)
     xml
   end
 
@@ -28,6 +29,14 @@ module XmlHelpers
   def l_to_li(xml)
     xml.css('l').each do |l_tag|
       l_tag.replace(%{<li>#{l_tag.children.to_html}</li>})
+    end
+    xml
+  end
+
+  def extract_barware(xml)
+    xml.css('bwr').each do |barware_tag|
+      barware = Barware.find_by(id: barware_tag.attribute('id').value)
+      barware_tag.replace(%{<a href="/barware/#{barware.to_param}">#{barware_tag.children.to_html}</a>})
     end
     xml
   end

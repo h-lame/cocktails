@@ -18,3 +18,10 @@ create table if not exists "recipe_formulation_ingredients" (
 create index "ix_recipe_formulation_ingredients_recipe_formulation_id" on "recipe_formulation_ingredients" (recipe_formulation_id);
 create index "ix_recipe_formulation_ingredients_ingredient_id" on "recipe_formulation_ingredients" (ingredient_id);
 create index "ix_recipe_formulation_ingredients_ingredient_recipe_formulation_id" on "recipe_formulation_ingredients" (ingredient_recipe_formulation_id);
+
+create table if not exists "barwares" (
+  id integer not null,
+  name text not null,
+  synonyms text,
+  PRIMARY KEY(id)
+);

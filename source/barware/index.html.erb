@@ -1,0 +1,14 @@
+---
+title: Cocktails | Barware
+---
+
+<h1>Barware</h1>
+
+<% barwares = Barware.alpha_order %>
+<nav class="">
+  <ol>
+    <% barwares.all.each do |barware| %>
+      <li><%= link_to barware.name, "/barware/#{barware.to_param}" %></li>
+    <% end %>
+  </ol>
+</nav>
