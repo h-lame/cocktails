@@ -1,0 +1,14 @@
+---
+title: Cocktails | Ingredients | Category | <%= category %>
+---
+
+<h1><%= category.titleize %></h1>
+
+<% ingredients = Ingredient.where(category: category).alpha_order %>
+<nav class="">
+  <ol>
+    <% ingredients.all.each do |ingredient| %>
+      <li><%= link_to ingredient.identity, ingredient_path(ingredient) %></li>
+    <% end %>
+  </ol>
+</nav>

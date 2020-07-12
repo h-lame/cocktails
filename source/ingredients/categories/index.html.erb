@@ -1,0 +1,13 @@
+---
+title: Cocktails | Ingredients | Category
+---
+<h1>Ingredient Categories</h1>
+
+<% categories = Ingredient.categories %>
+<nav class="">
+  <ol>
+    <% categories.each do |category| %>
+      <li><%= link_to category, category_path(category) %></li>
+    <% end %>
+  </ol>
+</nav>

@@ -7,6 +7,10 @@ module PathHelpers
     "/ingredients/#{ingredient.to_param}"
   end
 
+  def category_path(ingredient_category)
+    "/ingredients/categories/#{ingredient_category.parameterize}"
+  end
+
   def recipe_formulation_path(recipe_formulation)
     "/recipes/#{recipe_formulation.recipe.to_param}##{recipe_formulation.to_param}"
   end

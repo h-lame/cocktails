@@ -52,6 +52,10 @@ class Ingredient < ActiveRecord::Base
   has_many :recipe_formulation_ingredients
   has_many :recipe_formulations, through: :recipe_formulation_ingredients
 
+  def self.categories
+    order(category: :asc).select('distinct category').map &:category
+  end
+
   def self.from_tag(tag)
     find_by(hashed_ingredient_id: tag.attribute('id').value)
   end
