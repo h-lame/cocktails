@@ -55,3 +55,6 @@ end
 Barware.alpha_order.all.each do |barware|
   proxy "/barware/#{barware.to_param}/index.html", "/barware/barware.html", locals: { barware: barware }, ignore: true
 end
+BarwareImage.alpha_order.all.each do |barware_image|
+  proxy barware_image.img_src, "/images/barware/barware_image.png", locals: { barware_image: barware_image }, layout: false, ignore: true
+end

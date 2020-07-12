@@ -23,6 +23,24 @@ class Barware < ActiveRecord::Base
   end
 end
 
+class BarwareImage < ActiveRecord::Base
+  self.table_name = 'Image'
+
+  scope :alpha_order, -> { order(image_name: :asc) }
+
+  def title
+    image_name.gsub(/\Aicon\.(.*)\.bar\Z/, '\1')
+  end
+
+  def to_param
+    title.parameterize
+  end
+
+  def img_src
+    "/images/barware/#{image_name}"
+  end
+end
+
 class Ingredient < ActiveRecord::Base
   self.table_name = 'Ingredient'
 
