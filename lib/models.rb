@@ -1,4 +1,8 @@
-class Characteristic < ActiveRecord::Base
+class CocktailRecord < ActiveRecord::Base
+  self.abstract_class = true
+end
+
+class Characteristic < CocktailRecord
   self.table_name = 'Characteristic'
 
   scope :category_order, -> { order(category: :desc, label: :asc) }
@@ -7,7 +11,7 @@ class Characteristic < ActiveRecord::Base
   has_many :recipe_formulation_characteristics
 end
 
-class Barware < ActiveRecord::Base
+class Barware < CocktailRecord
   scope :alpha_order, -> { order(name: :asc) }
 
   has_many :recipe_formulation_barwares
@@ -26,7 +30,7 @@ class Barware < ActiveRecord::Base
   end
 end
 
-class BarwareImage < ActiveRecord::Base
+class BarwareImage < CocktailRecord
   self.table_name = 'Image'
 
   scope :alpha_order, -> { order(image_name: :asc) }
@@ -44,7 +48,7 @@ class BarwareImage < ActiveRecord::Base
   end
 end
 
-class Ingredient < ActiveRecord::Base
+class Ingredient < CocktailRecord
   self.table_name = 'Ingredient'
 
   scope :alpha_order, -> { order(identity: :asc) }
@@ -65,7 +69,7 @@ class Ingredient < ActiveRecord::Base
   end
 end
 
-class Recipe < ActiveRecord::Base
+class Recipe < CocktailRecord
   self.table_name = 'Recipe'
 
   scope :alpha_order, -> { order(canonical_title: :asc) }
@@ -91,7 +95,7 @@ class Recipe < ActiveRecord::Base
   end
 end
 
-class RecipeFormulation < ActiveRecord::Base
+class RecipeFormulation < CocktailRecord
   self.table_name = 'RecipeFormulation'
 
   def title
@@ -122,19 +126,19 @@ class RecipeFormulation < ActiveRecord::Base
   end
 end
 
-class RecipeFormulationCharacteristic < ActiveRecord::Base
+class RecipeFormulationCharacteristic < CocktailRecord
   self.table_name = 'RecipeFormulation_Characteristic'
 
   belongs_to :recipe_formulation
   belongs_to :characteristic
 end
 
-class RecipeFormulationBarware < ActiveRecord::Base
+class RecipeFormulationBarware < CocktailRecord
   belongs_to :recipe_formulation
   belongs_to :barware
 end
 
-class RecipeFormulationIngredient < ActiveRecord::Base
+class RecipeFormulationIngredient < CocktailRecord
   belongs_to :recipe_formulation
   belongs_to :ingredient
   belongs_to :ingredient_recipe_formulation, class_name: 'RecipeFormulation', foreign_key: :ingredient_recipe_formulation_id
@@ -146,7 +150,7 @@ class RecipeFormulationIngredient < ActiveRecord::Base
   end
 end
 
-class RecipeCharacteristic < ActiveRecord::Base
+class RecipeCharacteristic < CocktailRecord
   self.table_name = 'Recipe_Characteristic'
 
   belongs_to :recipe
