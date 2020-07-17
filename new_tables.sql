@@ -36,3 +36,8 @@ create table if not exists "recipe_formulation_barwares" (
 );
 create index "ix_recipe_formulation_barwares_recipe_formulation_id" on "recipe_formulation_barwares" (recipe_formulation_id);
 create index "ix_recipe_formulation_barwares_barware_id" on "recipe_formulation_barwares" (barware_id);
+
+update characteristic set label = 'whisky/whiskey' where category = 'base' and label = 'whiskey';
+update characteristic set label = 'aperitif wine' where category = 'base' and label = 'aperitif wines';
+update characteristic set label = 'tequila' where category = 'base' and label = 'Tequila/mescal';
+update ingredient set identity = 'Canadian whisky' where identity = 'Canadian whiskey';

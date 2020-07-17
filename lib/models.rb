@@ -24,6 +24,12 @@ class Characteristic < CocktailRecord
   has_many :recipe_characteristics
   has_many :recipe_formulation_characteristics
 
+  def ingredient
+    return nil unless category == 'base'
+
+    Ingredient.where('lower(identity) = ?', label.downcase).first
+  end
+
   def to_param
     "#{category}/#{label.parameterize}"
   end
