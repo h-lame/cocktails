@@ -15,6 +15,11 @@ class Characteristic < CocktailRecord
 
   scope :category_order, -> { insensitive_order(category: :asc, label: :asc) }
 
+  enum category: { base: 'base', flavour: 'flavor', ingredient: 'ingredient', tagging: 'tag', type: 'type' }
+  categories.each do |name, value|
+    scope :"without_#{name.pluralize}", -> { where.not(category: value) }
+  end
+
   has_many :recipe_characteristics
   has_many :recipe_formulation_characteristics
 end
@@ -84,7 +89,7 @@ class Recipe < CocktailRecord
 
   has_many :recipe_formulations, -> { order(year: :desc) }
   has_many :recipe_characteristics
-  has_many :characteristics, through: :recipe_characteristics
+  has_many :characteristics, -> { without_ingredients }, through: :recipe_characteristics
 
   def title
     canonical_title
@@ -112,7 +117,7 @@ class RecipeFormulation < CocktailRecord
 
   belongs_to :recipe
   has_many :recipe_formulation_characteristics
-  has_many :characteristics, through: :recipe_formulation_characteristics
+  has_many :characteristics, -> { without_ingredients }, through: :recipe_formulation_characteristics
   has_many :recipe_formulation_ingredients
   has_many :recipe_formulation_barwares
   has_many :barwares, through: :recipe_formulation_barwares
