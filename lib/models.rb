@@ -14,6 +14,7 @@ class Characteristic < CocktailRecord
   self.table_name = 'Characteristic'
 
   scope :category_order, -> { insensitive_order(category: :asc, label: :asc) }
+  scope :alpha_order, -> { insensitive_order(label: :asc) }
 
   enum category: { base: 'base', flavour: 'flavor', ingredient: 'ingredient', tagging: 'tag', type: 'type' }
   categories.each do |name, value|
@@ -22,6 +23,10 @@ class Characteristic < CocktailRecord
 
   has_many :recipe_characteristics
   has_many :recipe_formulation_characteristics
+
+  def to_param
+    "#{category}/#{label.parameterize}"
+  end
 end
 
 class Barware < CocktailRecord
@@ -86,6 +91,15 @@ class Recipe < CocktailRecord
   self.table_name = 'Recipe'
 
   scope :alpha_order, -> { insensitive_order(canonical_title: :asc) }
+
+  scope :with_characteristic, ->(characteristic) do
+    with_characteristics = self.includes(:recipe_characteristics, recipe_formulations: :recipe_formulation_characteristics)
+    with_characteristics
+      .where(RecipeFormulation_Characteristic: { characteristic_id: characteristic.id })
+      .or(
+        with_characteristics.where(Recipe_Characteristic: { characteristic_id: characteristic.id })
+      )
+  end
 
   has_many :recipe_formulations, -> { order(year: :desc) }
   has_many :recipe_characteristics

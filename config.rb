@@ -48,6 +48,11 @@ set :build_dir, 'public'
 Recipe.alpha_order.all.each do |recipe|
   proxy "/recipes/#{recipe.to_param}/index.html", "/recipes/recipe.html", locals: { recipe: recipe }, ignore: true
 end
+[:base, :flavour, :tagging, :type].each do |characteristic_type|
+  Characteristic.send(characteristic_type).each do |characteristic|
+    proxy "/recipes/#{characteristic.to_param}/index.html", "/recipes/#{characteristic_type}/#{characteristic_type}.html", locals: { characteristic_type => characteristic }, ignore: true
+  end
+end
 
 Ingredient.alpha_order.all.each do |ingredient|
   proxy "/ingredients/#{ingredient.to_param}/index.html", "/ingredients/ingredient.html", locals: { ingredient: ingredient }, ignore: true

@@ -1,0 +1,14 @@
+---
+title: Cocktails | Recipes | Tagging
+---
+
+<h1>Recipe tags</h1>
+
+<% tags = Characteristic.tagging.alpha_order %>
+<nav class="">
+  <ol>
+    <% tags.all.each do |tagging| %>
+      <li><%= link_to tagging.label, recipe_characteristic_path(tagging) %></li>
+    <% end %>
+  </ol>
+</nav>

@@ -1,0 +1,14 @@
+---
+title: Cocktails | Recipes | Flavour
+---
+
+<h1>Flavours in receipes</h1>
+
+<% flavours = Characteristic.flavour.alpha_order %>
+<nav class="">
+  <ol>
+    <% flavours.all.each do |flavour| %>
+      <li><%= link_to flavour.label, recipe_characteristic_path(flavour) %></li>
+    <% end %>
+  </ol>
+</nav>

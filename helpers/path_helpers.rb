@@ -15,6 +15,10 @@ module PathHelpers
     "/recipes/#{recipe_formulation.recipe.to_param}##{recipe_formulation.to_param}"
   end
 
+  def recipe_characteristic_path(characteristic)
+    "/recipes/#{characteristic.to_param}"
+  end
+
   def constituent_part_path(constituent_part)
     case constituent_part
     when Ingredient

@@ -1,0 +1,14 @@
+---
+title: Cocktails | Recipes | Base
+---
+
+<h1>Base ingredients for receipes</h1>
+
+<% bases = Characteristic.base.alpha_order %>
+<nav class="">
+  <ol>
+    <% bases.all.each do |base| %>
+      <li><%= link_to base.label, recipe_characteristic_path(base) %></li>
+    <% end %>
+  </ol>
+</nav>

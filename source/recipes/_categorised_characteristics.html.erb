@@ -2,7 +2,7 @@
   <% categorised_characteristics.each do |category, characteristics| %>
     <li><%= category %>:
       <ul><% characteristics.each do |characteristic| %>
-        <li><%= characteristic.label %></li>
+        <li><%= link_to characteristic.label, recipe_characteristic_path(characteristic) %></li>
       <% end %></ul>
     </li>
   <% end %>

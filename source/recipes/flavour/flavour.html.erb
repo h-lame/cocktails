@@ -1,0 +1,14 @@
+---
+title: Cocktails | Recipes | Flavour | <%= flavour.label %>
+---
+
+<h1>Recipes with a flavour of <%= flavour.label %></h1>
+
+<% recipes = Recipe.with_characteristic(flavour).alpha_order %>
+<nav class="">
+  <ol>
+    <% recipes.all.each do |recipe| %>
+      <li><%= link_to recipe.title, recipe_path(recipe) %></li>
+    <% end %>
+  </ol>
+</nav>
