@@ -4,7 +4,7 @@ class CocktailRecord < ActiveRecord::Base
   def self.insensitive_order(**columns)
     order(
       Arel.sql(
-        columns.map { |column, dir| "#{column} COLLATE NOCASE #{dir}" }.join(', ')
+        columns.map { |column, dir| "#{table_name}.#{column} COLLATE NOCASE #{dir}" }.join(', ')
       )
     )
   end
