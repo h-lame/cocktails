@@ -1,0 +1,9 @@
+<ul>
+  <% categorised_characteristics.each do |category, characteristics| %>
+    <li><%= category %>:
+      <ul><% characteristics.each do |characteristic| %>
+        <li><%= characteristic.label %></li>
+      <% end %></ul>
+    </li>
+  <% end %>
+</ul>

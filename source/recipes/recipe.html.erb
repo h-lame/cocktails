@@ -15,15 +15,7 @@ title: Cocktails | Recipes | <%= recipe.title %>
 <p><%= recipe.ingredient_summary %></p>
 
 <% if recipe.categorised_characteristics.any? %>
-<ul>
-  <% recipe.categorised_characteristics.each do |category, characteristics| %>
-    <li><%= category %>:
-      <ul><% characteristics.each do |characteristic| %>
-        <li><%= characteristic.label %></li>
-      <% end %></ul>
-    </li>
-  <% end %>
-</ul>
+<%= partial('recipes/categorised_characteristics', object: recipe.categorised_characteristics) %>
 <% end %>
 
 <% if recipe.recipe_formulations.any? %>
@@ -50,16 +42,7 @@ title: Cocktails | Recipes | <%= recipe.title %>
       <ol class="recipe-steps"><%= tidy_xml(formulation.xmlbody_as_xml) %></ol>
 
       <% if formulation.categorised_characteristics.any? %>
-      <h3>Characteristics</h3>
-      <ul>
-        <% formulation.categorised_characteristics.each do |category, characteristics| %>
-        <li><%= category %>:
-          <ul><% characteristics.each do |characteristic| %>
-            <li><%= characteristic.label %></li>
-          <% end %></ul>
-        </li>
-        <% end %>
-      </ul>
+      <%= partial('recipes/categorised_characteristics', object: formulation.categorised_characteristics) %>
       <% end %>
     </li>
   <% end %>
