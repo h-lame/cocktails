@@ -1,7 +1,6 @@
 ---
-title: Cocktails | Ingredients | Category | <%= category %>
 ---
-
+<% content_for(:title) do %>Cocktails | Ingredients | Category | <%= category %><% end %>
 <h1><%= category.titleize %></h1>
 
 <% ingredients = Ingredient.where(category: category).alpha_order %>

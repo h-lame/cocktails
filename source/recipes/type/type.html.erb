@@ -1,7 +1,6 @@
 ---
-title: Cocktails | Recipes | Type | <%= type.label %>
 ---
-
+<% content_for(:title) do %>Cocktails | Recipes | Type | <%= type.label %><% end %>
 <h1>Recipes of type <%= type.label %></h1>
 
 <% recipes = Recipe.with_characteristic(type).alpha_order %>

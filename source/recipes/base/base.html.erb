@@ -1,7 +1,6 @@
 ---
-title: Cocktails | Recipes | Base | <%= base.label %>
 ---
-
+<% content_for(:title) do %>Cocktails | Recipes | Base | <%= base.label %><% end %>
 <h1>Recipes with a base of <% if base.ingredient.present? %><%= link_to base.label, ingredient_path(base.ingredient) %><% else %><%= base.label %><% end %></h1>
 
 <% recipes = Recipe.with_characteristic(base).alpha_order %>

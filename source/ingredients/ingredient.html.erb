@@ -1,7 +1,6 @@
 ---
-title: Cocktails | Ingredients | <%= ingredient.identity%>
 ---
-
+<% content_for(:title) do %>Cocktails | Ingredients | <%= ingredient.identity%><% end %>
 <h1><%= ingredient.identity %></h1>
 
 <% if ingredient.proprietary? %>

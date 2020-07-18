@@ -1,7 +1,6 @@
 ---
-title: Cocktails | Barware | <%= barware.name %>
 ---
-
+<% content_for(:title) do %>Cocktails | Barware | <%= barware.name %><% end %>
 <h1><%= barware.name %></h1>
 
 <% if barware.synonyms_array.any? %>

@@ -1,7 +1,6 @@
 ---
-title: Cocktails | Recipes | <%= recipe.title %>
 ---
-
+<% content_for(:title) do %>Cocktails | Recipes | <%= recipe.title %><% end %>
 <h1><%= recipe.title %></h1>
 
 <div class="unit-selector">
