@@ -16,6 +16,13 @@ a {
   }
 }
 
+#cocktails-search-results {
+  display: none;
+}
+#cocktails-search-results.open {
+  display: block;
+}
+
 .inactiveUnit {
   display: none;
 }

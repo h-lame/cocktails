@@ -48,6 +48,16 @@ set :build_dir, 'public'
 Recipe.alpha_order.all.each do |recipe|
   proxy "/recipes/#{recipe.to_param}/index.html", "/recipes/recipe.html", locals: { recipe: recipe }, ignore: true
 end
+require 'middleman-search'
+activate :search do |search|
+  search.resources = ['recipes/']
+
+  search.fields = {
+    content: {boost: 100, store: true, required: true},
+    url: {index: false, store: true},
+  }
+end
+
 [:base, :flavour, :tagging, :type].each do |characteristic_type|
   Characteristic.send(characteristic_type).each do |characteristic|
     proxy "/recipes/#{characteristic.to_param}/index.html", "/recipes/#{characteristic_type}/#{characteristic_type}.html", locals: { characteristic_type => characteristic }, ignore: true

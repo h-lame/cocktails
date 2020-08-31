@@ -8,9 +8,27 @@
     <!-- Use the title from a page's frontmatter if it has one -->
     <title><%= current_page.data.title || yield_content(:title) %></title>
     <%= stylesheet_link_tag "site" %>
+    <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.7.2/lunr.min.js" %>
     <%= javascript_include_tag "site" %>
   </head>
   <body>
+    <header>
+      <form id="cocktails-search">
+        <input type="text" name="q" placeholder="cocktails search">
+        <input type="submit" value="Go">
+      </form>
+      <section id="cocktails-search-results" aria-hidden="true">
+        <script id="cocktails-search-results-result-template" type="text/js-template">
+          <article>
+            <h1><a href="${url}">${recipe_title}</a></h1>
+            <p>${ingredients}</p>
+          </article>
+        </script>
+        <h1 id="cocktails-search-results-title"></h1>
+        <button>X</button>
+        <div id="cocktails-search-results-container"></div>
+      </section>
+    </header>
     <%= yield %>
   </body>
 </html>
