@@ -29,6 +29,9 @@ page '/*.txt', layout: false
 require './setup_data'
 require './lib/models'
 
+require './lib/ingredients'
+activate :ingredients
+
 # Helpers
 # Methods defined in the helpers block are available in templates
 # https://middlemanapp.com/basics/helper-methods/
@@ -53,7 +56,8 @@ activate :search do |search|
   search.resources = ['recipes/']
 
   search.fields = {
-    content: {boost: 100, store: true, required: true},
+    recipe_title: {boost: 25, store: true, required: true},
+    ingredients: {boost: 100, store: true, required: true},
     url: {index: false, store: true},
   }
 end

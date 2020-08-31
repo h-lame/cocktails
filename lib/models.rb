@@ -111,6 +111,8 @@ class Recipe < CocktailRecord
   has_many :recipe_characteristics
   has_many :characteristics, -> { without_ingredients }, through: :recipe_characteristics
 
+  has_many :ingredients, -> { distinct }, through: :recipe_formulations
+
   def title
     canonical_title
   end
@@ -121,6 +123,10 @@ class Recipe < CocktailRecord
 
   def to_param
     canonical_title.parameterize
+  end
+
+  def ingredients_metadata
+    ingredients.map(&:identity).join ', '
   end
 
   def categorised_characteristics
@@ -139,6 +145,7 @@ class RecipeFormulation < CocktailRecord
   has_many :recipe_formulation_characteristics
   has_many :characteristics, -> { without_ingredients }, through: :recipe_formulation_characteristics
   has_many :recipe_formulation_ingredients
+  has_many :ingredients, through: :recipe_formulation_ingredients
   has_many :recipe_formulation_barwares
   has_many :barwares, through: :recipe_formulation_barwares
 
